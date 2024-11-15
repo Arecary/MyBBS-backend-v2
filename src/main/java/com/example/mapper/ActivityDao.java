@@ -1,3 +1,4 @@
+/*
 package com.example.dao;
 
 import com.example.entity.Activity;
@@ -42,3 +43,4 @@ public class ActivityDao {
     return entityManager.createQuery("from Activity", Activity.class).getResultList();
   }
 }
+*/

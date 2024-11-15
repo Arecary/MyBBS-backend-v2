@@ -1,3 +1,4 @@
+/*
 package com.example.entity;
 
 import javax.persistence.*;
@@ -43,3 +44,4 @@ public class ChangeActivity {
   // Getters and Setters
   // (You can use Lombok @Data if preferred)
 }
+*/
