@@ -1,27 +1,33 @@
-#server:
-#  port: 9090
+server:
+  port: 9090
 
 # database setting
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root   #database username
-#    password: ZS19960203ryf #database password
-#    url: jdbc:mysql://localhost:3306/mybbs?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    #    username: root   #database username
+    #    password: ZS19960203ryf #database password
+    #    url: jdbc:mysql://localhost:3306/mybbs?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
 
-    username: djff4uqzdfdethj3   #database username
-    password: bbcgq3r8w20e9aiq #database password
-    url: jdbc:mysql://djff4uqzdfdethj3:bbcgq3r8w20e9aiq@w1h4cr5sb73o944p.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ohn269tw9accbewb
+    username: Areca   #database username
+    password: ZS19960203ryf #database password
+    url: jdbc:mysql://mybbs-rds.cxosoegc4d6i.us-east-1.rds.amazonaws.com:3306/MyBBS-v2?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8
 
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
 
+  # 配置Hibernate
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
 # 配置mybatis实体和xml映射
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-
   type-aliases-package: com.example.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -34,11 +40,11 @@ cloud:
     credentials:
       access-key: ${AWS_ACCESS_KEY_ID}
       secret-key: ${AWS_SECRET_ACCESS_KEY}
-    region:
-      static: us-east-1
     stack:
       auto: false
-
+    region:
+      auto: false
+      static: us-east-1
 
 application:
   bucket:

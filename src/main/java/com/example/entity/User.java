@@ -1,145 +1,62 @@
 package com.example.entity;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import lombok.Data;
+
+@Entity
+@Data
 public class User extends Account{
+
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", nullable = false) // 映射数据库列
   private Integer id;
+
+  @Column(name = "username", length = 255, unique = true) // 用户名，长度 255
   private String username;
+
+  @Column(name = "password", length = 255) // 密码
   private String password;
+
+  @Column(name = "name", length = 255) // 姓名
   private String name;
 
-  // url of avatar
+  @Column(name = "avatar", length = 255) // 头像 URL
   private String avatar;
+
+  @Column(name = "role", length = 255) // 角色标识
   private String role;
+
+  @Column(name = "sex", length = 255) // 性别
   private String sex;
+
+  @Column(name = "phone", length = 255) // 电话
   private String phone;
+
+  @Column(name = "email", length = 255) // 邮箱
   private String email;
+
+  @Column(name = "info", length = 255) // 简介
   private String info;
+
+  @Column(name = "birth", length = 255) // 生日
   private String birth;
 
+  @Transient // 非持久化字段
   private Integer blogCount;
+
+  @Transient
   private Integer likesCount;
+
+  @Transient
   private Integer collectCount;
 
-  public Integer getBlogCount() {
-    return blogCount;
-  }
-
-  public void setBlogCount(Integer blogCount) {
-    this.blogCount = blogCount;
-  }
-
-  public Integer getLikesCount() {
-    return likesCount;
-  }
-
-  public void setLikesCount(Integer likesCount) {
-    this.likesCount = likesCount;
-  }
-
-  public Integer getCollectCount() {
-    return collectCount;
-  }
-
-  public void setCollectCount(Integer collectCount) {
-    this.collectCount = collectCount;
-  }
-
-  @Override
-  public Integer getId() {
-    return id;
-  }
-
-  @Override
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  @Override
-  public String getUsername() {
-    return username;
-  }
-
-  @Override
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  @Override
-  public String getPassword() {
-    return password;
-  }
-
-  @Override
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public String getAvatar() {
-    return avatar;
-  }
-
-  @Override
-  public void setAvatar(String avatar) {
-    this.avatar = avatar;
-  }
-
-  @Override
-  public String getRole() {
-    return role;
-  }
-
-  @Override
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-  public String getSex() {
-    return sex;
-  }
-
-  public void setSex(String sex) {
-    this.sex = sex;
-  }
-
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getInfo() {
-    return info;
-  }
-
-  public void setInfo(String info) {
-    this.info = info;
-  }
-
-  public String getBirth() {
-    return birth;
-  }
-
-  public void setBirth(String birth) {
-    this.birth = birth;
-  }
 }

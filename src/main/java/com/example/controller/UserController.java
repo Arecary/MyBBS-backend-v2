@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.common.Result;
-import com.example.entity.Admin;
 import com.example.entity.User;
 import com.example.service.UserService;
 import com.github.pagehelper.PageInfo;
@@ -63,6 +62,7 @@ public class UserController {
    */
   @PutMapping("/update")
   public Result updateById(@RequestBody User user) {
+    System.out.println("3333333333333333333333");
     userService.updateById(user);
     return Result.success();
   }
@@ -72,6 +72,7 @@ public class UserController {
    */
   @GetMapping("/selectById/{id}")
   public Result selectById(@PathVariable Integer id) {
+    System.out.println("22222222222222222222222222222222");
     User user = userService.selectById(id);
     return Result.success(user);
   }
@@ -81,6 +82,7 @@ public class UserController {
    */
   @GetMapping("/selectAll")
   public Result selectAll(User user) {
+    System.out.println("4444444444444444444");
     List<User> list = userService.selectAll(user);
     return Result.success(list);
   }
