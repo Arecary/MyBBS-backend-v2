@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.BlogMapper">
+<mapper namespace="org.bbsv2.main.mapper.BlogMapper">
 
     <sql id="Base_Column_List">
         id
         ,title,content,descr,cover,tags,user_id,date,read_count,category_id
     </sql>
 
-    <select id="selectAll" resultType="com.example.entity.Blog">
+    <select id="selectAll" resultType="org.bbsv2.main.entity.Blog">
         select
         blog.*, category.name as categoryName, user.name as userName
         from blog
@@ -26,7 +26,7 @@
         order by id desc
     </select>
 
-    <select id="selectById" resultType="com.example.entity.Blog">
+    <select id="selectById" resultType="org.bbsv2.main.entity.Blog">
         select
         blog.*,category.name as categoryName,user.name as userName
         from blog
@@ -37,7 +37,7 @@
         where blog.id = #{id}
     </select>
 
-    <select id="selectLike" resultType="com.example.entity.Blog">
+    <select id="selectLike" resultType="org.bbsv2.main.entity.Blog">
         select blog.*, user.name as userName
         from likes
         left join blog
@@ -56,7 +56,7 @@
         order by id desc
     </select>
 
-    <select id="selectCollect" resultType="com.example.entity.Blog">
+    <select id="selectCollect" resultType="org.bbsv2.main.entity.Blog">
         select blog.*, user.name as userName
         from collect
         left join blog
@@ -75,7 +75,7 @@
         order by id desc
     </select>
 
-    <select id="selectComment" resultType="com.example.entity.Blog">
+    <select id="selectComment" resultType="org.bbsv2.main.entity.Blog">
         select blog.*, user.name as userName
         from comment
         left join blog
@@ -102,7 +102,7 @@
         where id = #{id}
     </delete>
 
-    <insert id="insert" parameterType="com.example.entity.Blog" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="org.bbsv2.main.entity.Blog" useGeneratedKeys="true" keyProperty="id">
         insert into blog
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -130,7 +130,7 @@
         </trim>
     </insert>
 
-    <update id="updateById" parameterType="com.example.entity.Blog">
+    <update id="updateById" parameterType="org.bbsv2.main.entity.Blog">
         update blog
         <set>
             <if test="title != null">

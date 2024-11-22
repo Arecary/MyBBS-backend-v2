@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.ActivityMapper">
+<mapper namespace="org.bbsv2.main.mapper.ActivityMapper">
 
     <sql id="Base_Column_List">
         id,name,descr,start,end,form,address,host,read_count,content,cover
     </sql>
 
-    <select id="selectAll" resultType="com.example.entity.Activity">
+    <select id="selectAll" resultType="org.bbsv2.main.entity.Activity">
         select
         <include refid="Base_Column_List" />
         from activity
@@ -27,7 +27,7 @@
         order by id desc
     </select>
 
-    <select id="selectById" resultType="com.example.entity.Activity">
+    <select id="selectById" resultType="org.bbsv2.main.entity.Activity">
         select
         <include refid="Base_Column_List" />
         from activity
@@ -40,7 +40,7 @@
         where  id = #{id}
     </delete>
 
-    <insert id="insert" parameterType="com.example.entity.Activity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="org.bbsv2.main.entity.Activity" useGeneratedKeys="true" keyProperty="id">
         insert into activity
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -70,7 +70,7 @@
         </trim>
     </insert>
 
-    <update id="updateById" parameterType="com.example.entity.Activity">
+    <update id="updateById" parameterType="org.bbsv2.main.entity.Activity">
         update activity
         <set>
             <if test="name != null">

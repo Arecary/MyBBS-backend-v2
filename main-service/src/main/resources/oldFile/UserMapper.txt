@@ -75,15 +75,15 @@
         DELETE FROM user WHERE id = #{id}
     </delete>
 
-    <select id="selectByUsername" resultType="com.example.entity.User">
+    <select id="selectByUsername" resultType="entity.com.bbsv2.main.User">
         SELECT * FROM user WHERE username = #{username}
     </select>
 
-    <select id="selectById" resultType="com.example.entity.User">
+    <select id="selectById" resultType="entity.com.bbsv2.main.User">
         SELECT * FROM user WHERE id = #{id}
     </select>
 
-    <select id="selectAll" resultType="com.example.entity.User">
+    <select id="selectAll" resultType="entity.com.bbsv2.main.User">
         SELECT * FROM user
         <where>
             <if test="username != null"> and username = #{username}</if>

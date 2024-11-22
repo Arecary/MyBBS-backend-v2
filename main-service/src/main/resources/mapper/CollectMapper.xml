@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.CollectMapper">
+<mapper namespace="org.bbsv2.main.mapper.CollectMapper">
 
 
     <insert id="insert">
@@ -13,7 +13,7 @@
         delete from collect where id = #{id}
     </delete>
 
-    <select id="selectUserCollect" resultType="com.example.entity.Collect">
+    <select id="selectUserCollect" resultType="org.bbsv2.main.entity.Collect">
         select * from collect where fid = #{fid} and user_id = #{userId} and module = #{module}
     </select>
 

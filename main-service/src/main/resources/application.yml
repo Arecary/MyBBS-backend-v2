@@ -1,8 +1,19 @@
 server:
   port: 9090
+  error:
+    include-message: always
+    include-binding-errors: always
+    whitelabel:
+      enabled: false
 
 # database setting
 spring:
+  application:
+    name: main-service
+
+#  profiles:
+#    actice: dev
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    username: root   #database username
@@ -28,7 +39,7 @@ spring:
 # 配置mybatis实体和xml映射
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.entity
+  type-aliases-package: org.bbsv2.main.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
