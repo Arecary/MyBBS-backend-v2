@@ -1,3 +1,4 @@
+/*
 package org.bbsv2.main.service;
 
 
@@ -34,9 +35,11 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  /**
+  */
+/**
    * 添加用户
-   */
+   *//*
+
   public void add(User user) {
     Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
     if (existingUser.isPresent()) {
@@ -53,46 +56,58 @@ public class UserService {
   }
 
 
-  /**
+  */
+/**
    * 删除用户
-   */
+   *//*
+
   public void deleteById(Integer id) {
     userRepository.deleteById(id);
   }
 
-  /**
+  */
+/**
    * 批量删除用户
-   */
+   *//*
+
   @Transactional
   public void deleteBatch(List<Integer> ids) {
     ids.forEach(this::deleteById);
   }
 
-  /**
+  */
+/**
    * 更新用户信息
-   */
+   *//*
+
   public void updateById(User user) {
     userRepository.save(user);
   }
 
-  /**
+  */
+/**
    * 根据 ID 查询用户
-   */
+   *//*
+
   public User selectById(Integer id) {
     System.out.println("1111111111111111111111111111111111111111");
     return userRepository.findById(id).orElse(null);
   }
 
-  /**
+  */
+/**
    * 根据用户名查询用户
-   */
+   *//*
+
   public Optional<User> selectByUsername(String username) {
     return userRepository.findByUsername(username);
   }
 
-  /**
+  */
+/**
    * 分页查询用户
-   */
+   *//*
+
   public PageInfo<User> selectPage(User user, int pageNum, int pageSize) {
     Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by(Sort.Direction.DESC, "id"));
     Page<User> page = userRepository.findByConditions(user.getUsername(), user.getName(), pageable);
@@ -101,10 +116,12 @@ public class UserService {
 
 
 
-  /**
+  */
+/**
    *
    * FindAll
-   */
+   *//*
+
   public List<User> selectAll(User user) {
     return userRepository.findByConditions(
             user.getUsername(),
@@ -114,9 +131,11 @@ public class UserService {
 
 
 
-  /**
+  */
+/**
    * 用户登录
-   */
+   *//*
+
   public Account login(Account account) {
     User dbUser = userRepository.findByUsername(account.getUsername())
             .orElseThrow(() -> new CustomException(ResultCodeEnum.USER_NOT_EXIST_ERROR));
@@ -132,18 +151,22 @@ public class UserService {
     return dbUser;
   }
 
-  /**
+  */
+/**
    * 用户注册
-   */
+   *//*
+
   public void register(Account account) {
     User user = new User();
     BeanUtils.copyProperties(account, user);
     this.add(user);
   }
 
-  /**
+  */
+/**
    * 修改密码
-   */
+   *//*
+
   public void updatePassword(Account account) {
     User dbUser = userRepository.findByUsername(account.getUsername())
             .orElseThrow(() -> new CustomException(ResultCodeEnum.USER_NOT_EXIST_ERROR));
@@ -158,3 +181,4 @@ public class UserService {
 
 
   }
+*/

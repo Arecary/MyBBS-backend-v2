@@ -1,3 +1,4 @@
+/*
 package org.bbsv2.main.utils;
 
 import cn.hutool.core.date.DateUtil;
@@ -21,9 +22,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+*/
 /**
  * Token tool class
- */
+ *//*
+
 @Component
 public class TokenUtils {
 
@@ -43,18 +46,22 @@ public class TokenUtils {
         staticUserService = userService;
     }
 
-    /**
+    */
+/**
      * 生成token
-     */
+     *//*
+
     public static String createToken(String data, String sign) {
         return JWT.create().withAudience(data) // 将 userId-role 保存到 token 里面,作为载荷
                 .withExpiresAt(DateUtil.offsetHour(new Date(), 2)) // 2小时后token过期
                 .sign(Algorithm.HMAC256(sign)); // 以 password 作为 token 的密钥
     }
 
-    /**
+    */
+/**
      * 获取当前登录的用户信息
-     */
+     *//*
+
     public static Account getCurrentUser() {
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -76,3 +83,4 @@ public class TokenUtils {
     }
 }
 
+*/

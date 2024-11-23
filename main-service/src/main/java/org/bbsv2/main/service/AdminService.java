@@ -1,3 +1,4 @@
+/*
 package org.bbsv2.main.service;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -18,18 +19,22 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
+*/
 /**
  * 管理员业务处理
- **/
+ **//*
+
 @Service
 public class AdminService {
 
     @Resource
     private AdminMapper adminMapper;
 
-    /**
+    */
+/**
      * 新增
-     */
+     *//*
+
     public void add(Admin admin) {
         Admin dbAdmin = adminMapper.selectByUsername(admin.getUsername());
         if (ObjectUtil.isNotNull(dbAdmin)) {
@@ -45,55 +50,69 @@ public class AdminService {
         adminMapper.insert(admin);
     }
 
-    /**
+    */
+/**
      * 删除
-     */
+     *//*
+
     public void deleteById(Integer id) {
         adminMapper.deleteById(id);
     }
 
-    /**
+    */
+/**
      * 批量删除
-     */
+     *//*
+
     public void deleteBatch(List<Integer> ids) {
         for (Integer id : ids) {
             adminMapper.deleteById(id);
         }
     }
 
-    /**
+    */
+/**
      * 修改
-     */
+     *//*
+
     public void updateById(Admin admin) {
         adminMapper.updateById(admin);
     }
 
-    /**
+    */
+/**
      * 根据ID查询
-     */
+     *//*
+
     public Admin selectById(Integer id) {
         return adminMapper.selectById(id);
     }
 
-    /**
+    */
+/**
      * 查询所有
-     */
+     *//*
+
     public List<Admin> selectAll(Admin admin) {
         return adminMapper.selectAll(admin);
     }
 
-    /**
+    */
+/**
      * 分页查询
-     */
+     *//*
+
     public PageInfo<Admin> selectPage(Admin admin, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Admin> list = adminMapper.selectAll(admin);
         return PageInfo.of(list);
     }
 
-    /**
+    */
+/**
      * 登录
-     */
+     *//*
+
     public Account login(Account account) {
         Account dbAdmin = adminMapper.selectByUsername(account.getUsername());
         if (ObjectUtil.isNull(dbAdmin)) {
@@ -109,18 +128,22 @@ public class AdminService {
         return dbAdmin;
     }
 
-    /**
+    */
+/**
      * 注册
-     */
+     *//*
+
     public void register(Account account) {
         Admin admin = new Admin();
         BeanUtils.copyProperties(account, admin);
         add(admin);
     }
 
-    /**
+    */
+/**
      * 修改密码
-     */
+     *//*
+
     public void updatePassword(Account account) {
         Admin dbAdmin = adminMapper.selectByUsername(account.getUsername());
         if (ObjectUtil.isNull(dbAdmin)) {
@@ -133,4 +156,4 @@ public class AdminService {
         adminMapper.updateById(dbAdmin);
     }
 
-}
+}*/

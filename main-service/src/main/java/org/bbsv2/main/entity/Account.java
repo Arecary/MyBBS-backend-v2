@@ -1,28 +1,44 @@
+/*
 package org.bbsv2.main.entity;
 
 import lombok.Data;
 
+*/
 /**
  * Parent of all users
- */
+ *//*
+
 @Data
 public class Account {
     private Integer id;
-    /** 用户名 */
+    */
+/** 用户名 *//*
+
     private String username;
-    /** 名称 */
+    */
+/** 名称 *//*
+
     private String name;
-    /** 密码 */
+    */
+/** 密码 *//*
+
     private String password;
-    /** 角色标识 */
+    */
+/** 角色标识 *//*
+
     private String role;
-    /** 新密码 */
+    */
+/** 新密码 *//*
+
     private String newPassword;
-    /** 头像 */
+    */
+/** 头像 *//*
+
     private String avatar;
 
     private String token;
 
+*/
 /*    public Integer getId() {
         return id;
     }
@@ -85,5 +101,7 @@ public class Account {
 
     public void setToken(String token) {
         this.token = token;
-    }*/
+    }*//*
+
 }
+*/

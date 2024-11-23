@@ -1,5 +1,8 @@
 package org.bbsv2.main.entity;
 
+import lombok.Data;
+
+@Data
 public class Activity {
 
   /** ID */
@@ -23,7 +26,7 @@ public class Activity {
   private String content;
   private String cover;
 
-  public Integer getId() {
+/*  public Integer getId() {
     return id;
   }
 
@@ -109,5 +112,5 @@ public class Activity {
 
   public void setCover(String cover) {
     this.cover = cover;
-  }
+  }*/
 }

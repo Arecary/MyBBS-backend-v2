@@ -1,3 +1,4 @@
+/*
 package org.bbsv2.main.entity;
 
 
@@ -60,3 +61,4 @@ public class User extends Account{
   private Integer collectCount;
 
 }
+*/

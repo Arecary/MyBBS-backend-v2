@@ -1,3 +1,4 @@
+/*
 package org.bbsv2.main.dao;
 
 import org.bbsv2.main.entity.User;
@@ -13,6 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface  UserRepository extends JpaRepository<User, Integer> {
+
+//第一个参数（User）：
+//表示实体类类型。JpaRepository 将会管理的实体类型为 User。
+//Spring Data JPA 会根据这个类型与数据库表进行映射操作。
+//第二个参数（Integer）：
+//表示主键的类型。JpaRepository 中定义的所有方法（如 findById、deleteById）会使用这个类型来操作主键。
 
   // 自定义查询方法
   Optional<User> findByUsername(String username);
@@ -32,3 +39,4 @@ public interface  UserRepository extends JpaRepository<User, Integer> {
 
 
 }
+*/
