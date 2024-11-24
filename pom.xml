@@ -19,13 +19,28 @@
         <module>account-service</module>
         <module>bbs-common</module>
         <module>main-service</module>
+        <module>eureka-server</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version> <!-- 对应 Spring Boot 2.5.9 的兼容版本 -->
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--spring cloud-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -101,11 +116,11 @@
             <version>1.12.118</version> <!-- Use the latest version available -->
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-aws</artifactId>
-            <version>2.2.6.RELEASE</version> <!-- 使用最新的兼容版本 -->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-aws</artifactId>-->
+<!--            <version>2.2.6.RELEASE</version> &lt;!&ndash; 使用最新的兼容版本 &ndash;&gt;-->
+<!--        </dependency>-->
 
 
         <dependency>

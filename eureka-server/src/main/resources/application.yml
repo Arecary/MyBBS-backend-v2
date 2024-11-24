@@ -1,0 +1,12 @@
+server:
+  port: 10086
+
+spring:
+  application:
+    name: EurekaServer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+#    register-with-eureka: false # Eureka Server 本身不需要向其他 Eureka 注册
+    fetch-registry: false       # Eureka Server 不需要从其他 Eureka 拉取注册表
