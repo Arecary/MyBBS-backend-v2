@@ -8,8 +8,8 @@ import org.bbsv2.common.enums.ResultCodeEnum;
 import org.bbsv2.common.enums.RoleEnum;
 import org.bbsv2.common.exception.CustomException;
 import org.bbsv2.account.dao.UserRepository;
-import org.bbsv2.account.entity.Account;
-import org.bbsv2.account.entity.User;
+import org.bbsv2.common.entity.Account;
+import org.bbsv2.common.entity.User;
 import org.bbsv2.account.utils.TokenUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -78,7 +78,6 @@ public class UserService {
    * 根据 ID 查询用户
    */
   public User selectById(Integer id) {
-    System.out.println("1111111111111111111111111111111111111111");
     return userRepository.findById(id).orElse(null);
   }
 

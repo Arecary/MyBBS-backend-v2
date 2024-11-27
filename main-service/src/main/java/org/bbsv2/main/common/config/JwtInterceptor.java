@@ -10,10 +10,11 @@ import org.bbsv2.common.Constants;
 import org.bbsv2.common.enums.ResultCodeEnum;
 import org.bbsv2.common.enums.RoleEnum;
 import org.bbsv2.common.exception.CustomException;
+import org.bbsv2.common.entity.Account;
 
-import org.bbsv2.main.entity.Account;
-import org.bbsv2.main.service.AdminService;
-import org.bbsv2.main.service.UserService;
+import org.bbsv2.main.client.AdminFeignClient;
+import org.bbsv2.main.client.UserFeignClient;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +34,10 @@ public class JwtInterceptor implements HandlerInterceptor {
     private static final Logger log = LoggerFactory.getLogger(JwtInterceptor.class);
 
     @Resource
-    private AdminService adminService;
+    private AdminFeignClient adminFeignClient; // OpenFeign
+
     @Resource
-    private UserService userService;
+    private UserFeignClient userFeignClient;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -70,9 +72,9 @@ public class JwtInterceptor implements HandlerInterceptor {
 
             // 根据 userId 查询数据库
             if (RoleEnum.ADMIN.name().equals(role)) {
-                account = adminService.selectById(Integer.valueOf(userId));
+                account = adminFeignClient.getAdminById(Integer.valueOf(userId));
             } else if (RoleEnum.USER.name().equals(role)) {
-                account = userService.selectById(Integer.valueOf(userId));
+                account = userFeignClient.getUserById(Integer.valueOf(userId));
             }
 
             // 打印查询结果

@@ -1,7 +1,7 @@
 package org.bbsv2.main.service;
 
 import cn.hutool.core.date.DateUtil;
-import org.bbsv2.main.entity.Account;
+import org.bbsv2.common.entity.Account;
 import org.bbsv2.main.entity.Notice;
 import org.bbsv2.main.mapper.NoticeMapper;
 import org.bbsv2.main.utils.TokenUtils;

@@ -1,6 +1,7 @@
 package org.bbsv2.main.entity;
 
 import java.util.Objects;
+import org.bbsv2.common.entity.User;
 
 /**
  * 博客信息

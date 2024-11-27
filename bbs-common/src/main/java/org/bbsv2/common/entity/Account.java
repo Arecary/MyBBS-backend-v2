@@ -1,4 +1,4 @@
-package org.bbsv2.account.entity;
+package org.bbsv2.common.entity;
 
 import lombok.Data;
 

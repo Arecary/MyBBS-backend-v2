@@ -6,7 +6,7 @@ server:
     whitelabel:
       enabled: false
 
-# database setting
+
 spring:
   application:
     name: main-service
@@ -14,6 +14,7 @@ spring:
 #  profiles:
 #    actice: dev
 
+  # database setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    username: root   #database username
@@ -35,6 +36,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
 
 # 配置mybatis实体和xml映射
 mybatis:

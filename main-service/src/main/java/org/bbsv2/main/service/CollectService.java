@@ -1,6 +1,6 @@
 package org.bbsv2.main.service;
 
-import org.bbsv2.main.entity.Account;
+import org.bbsv2.common.entity.Account;
 import org.bbsv2.main.entity.Collect;
 import org.bbsv2.main.mapper.CollectMapper;
 import org.bbsv2.main.utils.TokenUtils;

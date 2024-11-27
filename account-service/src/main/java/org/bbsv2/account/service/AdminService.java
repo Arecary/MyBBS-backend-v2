@@ -7,8 +7,8 @@ import org.bbsv2.common.Constants;
 import org.bbsv2.common.enums.ResultCodeEnum;
 import org.bbsv2.common.enums.RoleEnum;
 import org.bbsv2.common.exception.CustomException;
-import org.bbsv2.account.entity.Account;
-import org.bbsv2.account.entity.Admin;
+import org.bbsv2.common.entity.Account;
+import org.bbsv2.common.entity.Admin;
 import org.bbsv2.account.mapper.AdminMapper;
 import org.bbsv2.account.utils.TokenUtils;
 import org.springframework.beans.BeanUtils;
@@ -97,6 +97,7 @@ public class AdminService {
      * 登录
      */
     public Account login(Account account) {
+        System.out.println("11111111111111111111111111111");
         Account dbAdmin = adminMapper.selectByUsername(account.getUsername());
         if (ObjectUtil.isNull(dbAdmin)) {
             throw new CustomException(ResultCodeEnum.USER_NOT_EXIST_ERROR);

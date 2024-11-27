@@ -3,7 +3,7 @@ package org.bbsv2.account.controller;
 import org.bbsv2.common.Result;
 import org.bbsv2.common.enums.ResultCodeEnum;
 import org.bbsv2.common.enums.RoleEnum;
-import org.bbsv2.account.entity.Account;
+import org.bbsv2.common.entity.Account;
 import org.bbsv2.account.service.AdminService;
 import org.bbsv2.account.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
 package org.bbsv2.main.service;
 
 import org.bbsv2.common.enums.RoleEnum;
-import org.bbsv2.main.entity.Account;
+import org.bbsv2.common.entity.Account;
 import org.bbsv2.main.entity.Comment;
 import org.bbsv2.main.mapper.CommentMapper;
 import org.bbsv2.main.utils.TokenUtils;

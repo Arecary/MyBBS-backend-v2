@@ -1,7 +1,7 @@
 package org.bbsv2.account.mapper;
 
 import org.apache.ibatis.annotations.Select;
-import org.bbsv2.account.entity.Admin;
+import org.bbsv2.common.entity.Admin;
 
 import java.util.List;
 

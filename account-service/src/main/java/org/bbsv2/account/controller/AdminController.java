@@ -3,7 +3,7 @@ package org.bbsv2.account.controller;
 import com.github.pagehelper.PageInfo;
 
 import org.bbsv2.common.Result;
-import org.bbsv2.account.entity.Admin;
+import org.bbsv2.common.entity.Admin;
 import org.bbsv2.account.service.AdminService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

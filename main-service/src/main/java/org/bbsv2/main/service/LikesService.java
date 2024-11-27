@@ -1,6 +1,6 @@
 package org.bbsv2.main.service;
 
-import org.bbsv2.main.entity.Account;
+import org.bbsv2.common.entity.Account;
 import org.bbsv2.main.entity.Likes;
 import org.bbsv2.main.mapper.LikesMapper;
 import org.bbsv2.main.utils.TokenUtils;

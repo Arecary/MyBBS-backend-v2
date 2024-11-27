@@ -1,6 +1,6 @@
 package org.bbsv2.account.dao;
 
-import org.bbsv2.account.entity.User;
+import org.bbsv2.common.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

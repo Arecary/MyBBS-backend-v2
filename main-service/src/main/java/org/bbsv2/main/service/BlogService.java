@@ -7,12 +7,13 @@ import cn.hutool.json.JSONUtil;
 
 import org.bbsv2.common.enums.LikesModuleEnum;
 import org.bbsv2.common.enums.RoleEnum;
+import org.bbsv2.common.entity.Account;
+import org.bbsv2.common.entity.User;
 
-import org.bbsv2.main.entity.Account;
+import org.bbsv2.main.client.UserFeignClient;
 import org.bbsv2.main.entity.Blog;
 import org.bbsv2.main.entity.Collect;
 import org.bbsv2.main.entity.Likes;
-import org.bbsv2.main.entity.User;
 import org.bbsv2.main.mapper.BlogMapper;
 import org.bbsv2.main.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
@@ -35,7 +36,7 @@ public class BlogService {
   private BlogMapper blogMapper;
 
   @Resource
-  UserService userService;
+  private UserFeignClient userFeignClient;
 
   @Resource
   LikesService likesService;
@@ -84,7 +85,7 @@ public class BlogService {
   public Blog selectById(Integer id) {
     Blog blog = blogMapper.selectById(id);
 
-    User user = userService.selectById(blog.getUserId());
+    User user = userFeignClient.getUserById(blog.getUserId());
     List<Blog> userBlogList = blogMapper.selectUserBlog(user.getId());
     user.setBlogCount(userBlogList.size());
     //  当前用户收到的点赞和收藏的数据

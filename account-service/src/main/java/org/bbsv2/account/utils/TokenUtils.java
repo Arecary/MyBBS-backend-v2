@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 import org.bbsv2.common.Constants;
 import org.bbsv2.common.enums.RoleEnum;
-import org.bbsv2.account.entity.Account;
+import org.bbsv2.common.entity.Account;
 import org.bbsv2.account.service.AdminService;
 import org.bbsv2.account.service.UserService;
 import org.slf4j.Logger;

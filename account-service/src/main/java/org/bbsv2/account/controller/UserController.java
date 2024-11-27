@@ -3,7 +3,7 @@ package org.bbsv2.account.controller;
 import com.github.pagehelper.PageInfo;
 
 import org.bbsv2.common.Result;
-import org.bbsv2.account.entity.User;
+import org.bbsv2.common.entity.User;
 import org.bbsv2.account.service.UserService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,7 +80,6 @@ public class UserController {
    */
   @GetMapping("/selectAll")
   public Result selectAll(User user) {
-    System.out.println("77777777777777777777");
     List<User> list = userService.selectAll(user);
     return Result.success(list);
   }

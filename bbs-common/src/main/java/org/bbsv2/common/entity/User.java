@@ -1,4 +1,4 @@
-package org.bbsv2.account.entity;
+package org.bbsv2.common.entity;
 
 
 import javax.persistence.Column;
@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class User extends Account{
+public class User extends Account {
 
 
   @Id
