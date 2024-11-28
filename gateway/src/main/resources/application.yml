@@ -1,0 +1,61 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+    whitelabel:
+      enabled: false
+
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:8081"  # 前端的地址
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        # Account Service
+        - id: account-service-login
+          uri: lb://account-service  # Account Service 的地址
+          predicates:
+            - Path=/login,/register,/updatePassword
+#            - Path=/login
+#            - Path=/register
+#            - Path=/updatePassword # 匹配登录、注册、修改密码的路径
+
+        - id: account-service-admin
+          uri: lb://account-service
+          predicates:
+            - Path=/admin/**  # 匹配管理员相关的路径
+
+        - id: account-service-user
+          uri: lb://account-service
+          predicates:
+            - Path=/user/**  # 匹配用户相关的路径
+
+
+        # Main Service
+        - id: main-service-login
+          uri: lb://main-service
+          predicates:
+            - Path=/**  # the rest path
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+
+
+
+#ip: localhost

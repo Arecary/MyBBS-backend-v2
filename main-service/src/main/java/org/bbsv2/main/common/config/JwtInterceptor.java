@@ -16,6 +16,7 @@ import org.bbsv2.main.client.AdminFeignClient;
 import org.bbsv2.main.client.UserFeignClient;
 
 
+import org.bbsv2.main.utils.TokenContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -59,6 +60,9 @@ public class JwtInterceptor implements HandlerInterceptor {
             log.error("Token is missing. Rejecting request.");
             throw new CustomException(ResultCodeEnum.TOKEN_INVALID_ERROR);
         }
+
+        // 将 Token 保存到 ThreadLocal 中
+        TokenContext.setToken(token);
 
         Account account = null;
         try {
@@ -104,5 +108,11 @@ public class JwtInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        // 请求完成后清理 ThreadLocal 中的 Token
+        TokenContext.clear();
+        log.info("Token cleared from ThreadLocal after request completion.");
+    }
 
 }

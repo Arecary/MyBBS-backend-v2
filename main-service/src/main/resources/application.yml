@@ -68,6 +68,12 @@ application:
   bucket:
     name: shi1stbuckt
 
+feign:
+  client:
+    config:
+      default:
+        request-interceptor-order: 1
+
 
 
 # 分页

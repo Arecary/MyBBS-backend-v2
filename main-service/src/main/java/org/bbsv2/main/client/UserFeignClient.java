@@ -1,5 +1,7 @@
 package org.bbsv2.main.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.bbsv2.common.Result;
 import org.bbsv2.common.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -17,7 +19,10 @@ public interface UserFeignClient {
   default User getUserById(Integer id) {
     Result result = selectById(id);
     if (result != null && "200".equals(result.getCode())) {
-      return (User) result.getData();
+      Object data = result.getData();
+      // 使用 ObjectMapper 将 LinkedHashMap 转换为 User，因为return (User) result.getData();会导致强转异常ClassCastException
+      ObjectMapper objectMapper = new ObjectMapper();
+      return objectMapper.convertValue(data, User.class);
     }
     return null;
   }

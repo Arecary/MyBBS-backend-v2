@@ -97,7 +97,6 @@ public class AdminService {
      * 登录
      */
     public Account login(Account account) {
-        System.out.println("11111111111111111111111111111");
         Account dbAdmin = adminMapper.selectByUsername(account.getUsername());
         if (ObjectUtil.isNull(dbAdmin)) {
             throw new CustomException(ResultCodeEnum.USER_NOT_EXIST_ERROR);

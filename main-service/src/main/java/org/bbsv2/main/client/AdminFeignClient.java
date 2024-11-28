@@ -1,5 +1,8 @@
 package org.bbsv2.main.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +21,9 @@ public interface AdminFeignClient {
   default Admin getAdminById(Integer id) {
     Result result = selectById(id);
     if (result != null && "200".equals(result.getCode())) {
-      return (Admin) result.getData();
+      Object data = result.getData();
+      ObjectMapper objectMapper = new ObjectMapper();
+      return objectMapper.convertValue(data, Admin.class);
     }
     return null;
   }

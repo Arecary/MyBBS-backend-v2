@@ -38,11 +38,20 @@ public class TokenUtils {
    */
   public static Account getCurrentUser() {
     try {
-      HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-      String token = request.getHeader("Authorization");
+//      HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//      System.out.println("HttpServletRequest: " + request);
+//      String token = request.getHeader("Authorization");
+//      System.out.println("Token from request: " + token);
+      // 从 TokenContext 中获取 Token
+      String token = TokenContext.getToken();
+      System.out.println("Token is: " + token);
+
 
       if (token != null && !token.isEmpty()) {
-        return staticTokenFeignClient.getCurrentUser(token);
+        System.out.println("Feign Client is about to call account-service...");
+        Account account = staticTokenFeignClient.getCurrentUser(token);
+        System.out.println("Account from Feign Client: " + account);
+        return account;
       }
     } catch (Exception e) {
       log.error("Failed to fetch current user", e);

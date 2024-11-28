@@ -17,6 +17,9 @@ public class TokenController {
 
   @GetMapping("/getCurrentUser")
   public Account getCurrentUser(@RequestHeader("Authorization") String token) {
-    return TokenUtils.getCurrentUser();
+    System.out.println("Token received: " + token);
+    Account account = TokenUtils.setUser(token);
+    System.out.println("Account fetched: " + account);
+    return account;
   }
 }
