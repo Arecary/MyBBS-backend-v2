@@ -6,6 +6,7 @@ import org.bbsv2.common.enums.RoleEnum;
 import org.bbsv2.common.entity.Account;
 import org.bbsv2.account.service.AdminService;
 import org.bbsv2.account.service.UserService;
+import org.bbsv2.common.exception.CustomException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -84,6 +85,12 @@ public class WebController {
             userService.updatePassword(account);
         }
         return Result.success();
+    }
+
+
+    @GetMapping("/testException")
+    public String testException() {
+        throw new CustomException("9999", "Test Custom Exception");
     }
 
 }

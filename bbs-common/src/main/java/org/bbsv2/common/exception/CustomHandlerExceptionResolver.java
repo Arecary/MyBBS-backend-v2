@@ -1,5 +1,6 @@
 package org.bbsv2.common.exception;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -10,10 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Order(-1) // 设置更高优先级
 public class CustomHandlerExceptionResolver implements HandlerExceptionResolver {
 
   @Override
   public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+
+    // 日志记录
+    ex.printStackTrace(); // 打印异常堆栈信息
+    System.out.println("捕获的异常类型：" + ex.getClass().getName());
+    System.out.println("返回的状态码：" + response.getStatus());
+
     response.setContentType("application/json;charset=UTF-8"); // 设置返回内容为 JSON
     try {
       // 强制返回 HTTP 状态码 200

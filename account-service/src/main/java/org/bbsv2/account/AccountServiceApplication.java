@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 //}, scanBasePackages = "org.bbsv2.account")
 
 
-@SpringBootApplication(scanBasePackages = "org.bbsv2.account")
+@SpringBootApplication(scanBasePackages = {"org.bbsv2.account", "org.bbsv2.common"})
 @MapperScan("org.bbsv2.account.mapper")
 @EntityScan(basePackages = "org.bbsv2.common.entity")
 public class AccountServiceApplication {

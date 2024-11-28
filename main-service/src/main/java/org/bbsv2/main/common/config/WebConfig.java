@@ -1,7 +1,6 @@
 package org.bbsv2.main.common.config;
 
 import org.bbsv2.common.exception.CustomHandlerExceptionResolver;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

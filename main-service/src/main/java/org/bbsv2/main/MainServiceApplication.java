@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 //}, scanBasePackages = "org.bbsv2.main")
 
 @EnableFeignClients
-@SpringBootApplication(scanBasePackages = "org.bbsv2.main")
+@SpringBootApplication(scanBasePackages = {"org.bbsv2.main", "org.bbsv2.common"})
 @MapperScan("org.bbsv2.main.mapper")
 public class MainServiceApplication {
 
