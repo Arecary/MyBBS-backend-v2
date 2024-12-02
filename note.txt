@@ -18,6 +18,9 @@ HandlerExceptionResolver（如 CustomHandlerExceptionResolver）：这是更底�
 所以controller里的异常优先被 GlobalExceptionHandler 捕获，如果 GlobalExceptionHandler 中没有匹配的 @ExceptionHandler，才会被 CustomHandlerExceptionResolver 捕获。
 
 
+2.
+分离数据库的时候需要小心原来的comment service逻辑里的连表查询，需要改成里用openfeignClient进行查询
+
 
 
 
