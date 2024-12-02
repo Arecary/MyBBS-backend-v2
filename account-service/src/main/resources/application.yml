@@ -21,6 +21,14 @@ spring:
     password: ZS19960203ryf #database password
     url: jdbc:mysql://mybbs-rds.cxosoegc4d6i.us-east-1.rds.amazonaws.com:3306/UserDB?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8
 
+  cache:
+    type: redis
+  redis:
+    host: localhost # 本地开发时是 localhost，部署到 EC2 时填写 Redis 实例的内网 IP
+    port: 6379 # Redis default port
+    password: # 如果 Redis 配置了密码，在这里填写
+    database: 0     # 使用的 Redis 数据库编号
+
   servlet:
     multipart:
       max-file-size: 100MB
@@ -36,12 +44,13 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:10086/eureka
+#      defaultZone: http://eureka-server:10086/eureka
+      defaultZone: http://localhost:10086/eureka/
 
 # 配置mybatis实体和xml映射
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: org.bbsv2.main.entity
+  type-aliases-package: org.bbsv2.common.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
@@ -61,7 +70,7 @@ mybatis:
 #
 #application:
 #  bucket:
-#    name: shi1stbuckt
+#    name: shi2stbuckt
 
 
 

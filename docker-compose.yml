@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  eureka-server:
+    image: eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "10086:10086"
+    networks:
+      - bbs-network
+    restart: always
+    command: ["java", "-jar", "/app/eureka-server.jar"]
+
+  gateway-service:
+    image: gateway-service:latest
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    networks:
+      - bbs-network
+    depends_on:
+      - eureka-server
+    restart: always
+    command: ["java", "-jar", "/app/gateway.jar"]
+
+  main-service:
+    image: main-service:latest
+    container_name: main-service
+    ports:
+      - "9090:9090"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    networks:
+      - bbs-network
+    depends_on:
+      - eureka-server
+    restart: always
+    command: ["java", "-jar", "/app/main-service.jar"]
+
+  account-service:
+    image: account-service:latest
+    container_name: account-service
+    ports:
+      - "9091:9091"
+    networks:
+      - bbs-network
+    depends_on:
+      - eureka-server
+    restart: always
+    command: ["java", "-jar", "/app/account-service.jar"]
+
+networks:
+  bbs-network:

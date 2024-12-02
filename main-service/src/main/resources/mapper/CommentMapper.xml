@@ -10,17 +10,10 @@
 
     <select id="selectAll" resultType="org.bbsv2.main.entity.Comment">
         select
-        comment.*, user.name as userName,  user.avatar as avatar, u2.name as replyUser
+        comment.*
         from comment
-        left join user
-        on comment.user_id = user.id
-        left join comment c2
-        on comment.pid = c2.id
-        left join user u2
-        on c2.user_id = u2.id
         <where>
-            <if test="userName != null"> and user.name like concat('%', #{userName}, '%')</if>
-            <if test="fid != null"> and comment.fid  = #{fid}</if>
+            <if test="fid != null"> and comment.fid = #{fid}</if>
             <if test="module != null"> and comment.module = #{module}</if>
             <if test="rootId != null"> and comment.root_id = #{rootId}</if>
         </where>
@@ -29,13 +22,10 @@
 
     <select id="selectForUser" resultType="org.bbsv2.main.entity.Comment">
         select
-        comment.*, user.name as userName,  user.avatar as avatar
+        comment.*
         from comment
-        left join user
-        on comment.user_id = user.id
         <where>
-            <if test="userName != null"> and user.name like concat('%', #{userName}, '%')</if>
-            <if test="fid != null"> and comment.fid  = #{fid}</if>
+            <if test="fid != null"> and comment.fid = #{fid}</if>
             <if test="module != null"> and comment.module = #{module}</if>
             and pid is null
         </where>

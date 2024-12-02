@@ -41,7 +41,8 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:10086/eureka
+#      defaultZone: http://eureka-server:10086/eureka
+      defaultZone: http://localhost:10086/eureka/
 
 # 配置mybatis实体和xml映射
 mybatis:
@@ -66,14 +67,7 @@ cloud:
 
 application:
   bucket:
-    name: shi1stbuckt
-
-feign:
-  client:
-    config:
-      default:
-        request-interceptor-order: 1
-
+    name: shi2stbuckt
 
 
 # 分页

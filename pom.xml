@@ -16,8 +16,8 @@
     </parent>
 
     <modules>
-        <module>account-service</module>
         <module>bbs-common</module>
+        <module>account-service</module>
         <module>main-service</module>
         <module>eureka-server</module>
         <module>gateway</module>
@@ -104,12 +104,6 @@
             <version>4.3.0</version>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.google.cloud/google-cloud-storage &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.google.cloud</groupId>-->
-<!--            <artifactId>google-cloud-storage</artifactId>-->
-<!--            <version>2.35.0</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>com.amazonaws</groupId>

@@ -12,6 +12,8 @@ import org.bbsv2.common.entity.Account;
 import org.bbsv2.common.entity.User;
 import org.bbsv2.account.utils.TokenUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,31 +54,68 @@ public class UserService {
   }
 
 
+//  /**
+//   * 删除用户
+//   */
+//  public void deleteById(Integer id) {
+//    userRepository.deleteById(id);
+//  }
+
   /**
-   * 删除用户
+   * 删除用户（清理缓存）
    */
+  @CacheEvict(value = "userCache", key = "#id")
   public void deleteById(Integer id) {
     userRepository.deleteById(id);
   }
 
+//  /**
+//   * 批量删除用户
+//   */
+//  @Transactional
+//  public void deleteBatch(List<Integer> ids) {
+//    ids.forEach(this::deleteById);
+//  }
+
   /**
-   * 批量删除用户
+   * 批量删除用户（清理缓存）
    */
   @Transactional
+  @CacheEvict(value = "userCache", allEntries = true)
   public void deleteBatch(List<Integer> ids) {
-    ids.forEach(this::deleteById);
+    ids.forEach(userRepository::deleteById); // 直接操作数据库
   }
 
+//  /**
+//   * 更新用户信息
+//   */
+//  public void updateById(User user) {
+//    userRepository.save(user);
+//  }
+
   /**
-   * 更新用户信息
+   * 更新用户信息（清理缓存）
    */
+  @CacheEvict(value = "userCache", key = "#user.id")
   public void updateById(User user) {
-    userRepository.save(user);
+    userRepository.save(user); // 更新数据库
+    // 手动刷新缓存
+    selectById(user.getId());
   }
 
+
+
+//  /**
+//   * 根据 ID 查询用户
+//   */
+//  public User selectById(Integer id) {
+//    return userRepository.findById(id).orElse(null);
+//  }
+
   /**
-   * 根据 ID 查询用户
+   * 根据 ID 查询用户 (缓存)
    */
+  @Cacheable(value = "userCache", key = "#id", unless = "#result == null")
   public User selectById(Integer id) {
     return userRepository.findById(id).orElse(null);
   }

@@ -62,6 +62,7 @@ public class FileController {
   public Dict editorUpload(MultipartFile file) {
     String flag = System.currentTimeMillis() + "";
     String fileName = flag + "-" + file.getOriginalFilename();
+    System.out.println("11111111111111111" + bucketName);
     try {
       // 上传文件到S3
       File tempFile = convertMultiPartToFile(file);
