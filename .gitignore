@@ -2,7 +2,7 @@
 target/
 
 # Ignore Docker image folder
-docker images/
+docker_images/
 
 # Ignore all target folders in any subdirectory
 **/target/
