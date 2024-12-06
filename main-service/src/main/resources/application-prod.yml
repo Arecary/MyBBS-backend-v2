@@ -1,0 +1,82 @@
+server:
+  port: 9090
+  error:
+    include-message: always
+    include-binding-errors: always
+    whitelabel:
+      enabled: false
+
+
+spring:
+  application:
+    name: main-service
+
+  # database setting
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    username: Areca   #database username
+    password: ZS19960203ryf #database password
+    url: jdbc:mysql://mybbs-rds.cxosoegc4d6i.us-east-1.rds.amazonaws.com:3306/MyBBS-v2?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # 配置Hibernate
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  kafka:
+    bootstrap-servers: localhost:9092  # Kafka 服务器地址
+    consumer:
+      group-id: main-service-group     # 消费者分组
+      auto-offset-reset: earliest      # 消费从最早的偏移量开始
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:10086/eureka
+
+# 配置mybatis实体和xml映射
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.bbsv2.main.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+
+# AWS S3
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    stack:
+      auto: false
+    region:
+      auto: false
+      static: us-east-1
+
+application:
+  bucket:
+    name: shi2stbuckt
+
+
+# 分页
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

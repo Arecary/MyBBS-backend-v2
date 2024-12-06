@@ -1,8 +1,10 @@
 package org.bbsv2.main.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.bbsv2.main.entity.Blog;
 
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -39,6 +41,16 @@ public interface BlogMapper {
 
   @Select("select * from blog where user_id = #{id}")
   List<Blog> selectUserBlog(Integer id);
+
+  @Select("SELECT * FROM blog WHERE user_id = #{userId}")
+  List<Blog> selectAllByUserId(Integer userId);
+
+  @Select("SELECT id FROM blog WHERE user_id = #{userId}")
+  List<Integer> selectBlogIdsByUserId(@Param("userId") Integer userId);
+
+  @Delete("DELETE FROM blog WHERE user_id = #{userId}")
+  void deleteByUserId(@Param("userId") Integer userId);
+
 
 
   /**

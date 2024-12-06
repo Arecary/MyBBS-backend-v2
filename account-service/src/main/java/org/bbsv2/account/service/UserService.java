@@ -1,6 +1,7 @@
 package org.bbsv2.account.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 
 import org.bbsv2.common.Constants;
@@ -19,8 +20,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.kafka.core.KafkaTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -30,9 +34,12 @@ public class UserService {
 
   private final UserRepository userRepository;
 
+  private final KafkaTemplate<String, String> kafkaTemplate;
 
-  public UserService(UserRepository userRepository) {
+
+  public UserService(UserRepository userRepository, KafkaTemplate<String, String> kafkaTemplate) {
     this.userRepository = userRepository;
+    this.kafkaTemplate = kafkaTemplate;
   }
 
   /**
@@ -67,6 +74,17 @@ public class UserService {
   @CacheEvict(value = "userCache", key = "#id")
   public void deleteById(Integer id) {
     userRepository.deleteById(id);
+
+    // 发送 Kafka 消息
+    Map<String, Object> message = new HashMap<>();
+    message.put("userId", id);
+
+    try {
+      kafkaTemplate.send("user-delete-topic", new ObjectMapper().writeValueAsString(message));
+      System.out.println("Kafka message sent: " + message);
+    } catch (Exception e) {
+      System.err.println("Failed to send Kafka message: " + e.getMessage());
+    }
   }
 
 //  /**
@@ -104,7 +122,6 @@ public class UserService {
   }
 
 
-
 //  /**
 //   * 根据 ID 查询用户
 //   */
@@ -137,9 +154,7 @@ public class UserService {
   }
 
 
-
   /**
-   *
    * FindAll
    */
   public List<User> selectAll(User user) {
@@ -148,7 +163,6 @@ public class UserService {
             user.getName()
     );
   }
-
 
 
   /**
@@ -193,5 +207,4 @@ public class UserService {
     userRepository.save(dbUser);
   }
 
-
-  }
+}

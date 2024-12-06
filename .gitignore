@@ -6,3 +6,8 @@ docker images/
 
 # Ignore all target folders in any subdirectory
 **/target/
+
+# Ignore environment variable files
+.env
+
+backend.bfg-report/

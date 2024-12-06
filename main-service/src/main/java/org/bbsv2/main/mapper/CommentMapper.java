@@ -1,5 +1,6 @@
 package org.bbsv2.main.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.bbsv2.main.entity.Comment;
 
 import org.apache.ibatis.annotations.Param;
@@ -45,4 +46,16 @@ public interface CommentMapper {
 
   @Select("select count(*) from comment where fid = #{fid} and module = #{module}")
   Integer selectCount(@Param("fid") Integer fid, @Param("module") String module);
+
+  @Select("SELECT * FROM comment WHERE user_id = #{userId}")
+  List<Comment> selectAllByUserId(Integer userId);
+
+
+  @Delete("<script>" +
+          "DELETE FROM comment WHERE fid IN " +
+          "<foreach item='id' collection='blogIds' open='(' separator=',' close=')'>" +
+          "#{id}" +
+          "</foreach>" +
+          "</script>")
+  void deleteByBlogIds(@Param("blogIds") List<Integer> blogIds);
 }

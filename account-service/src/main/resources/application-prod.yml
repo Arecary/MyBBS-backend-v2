@@ -1,0 +1,71 @@
+server:
+  port: 9091
+  error:
+    include-message: always
+    include-binding-errors: always
+    whitelabel:
+      enabled: false
+
+
+spring:
+  application:
+    name: account-service
+
+  # database setting
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: Areca   #database username
+    password: ZS19960203ryf #database password
+    url: jdbc:mysql://mybbs-rds.cxosoegc4d6i.us-east-1.rds.amazonaws.com:3306/UserDB?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8
+
+  cache:
+    type: redis
+  redis:
+    host: 172.31.31.19 # 本地开发时是 localhost，部署到 EC2 时填写 Redis 实例的内网 IP
+    port: 6379 # Redis default port
+    password: # 如果 Redis 配置了密码，在这里填写
+    database: 0     # 使用的 Redis 数据库编号
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  # 配置Hibernate
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  kafka:
+    bootstrap-servers: localhost:9092  # Kafka 服务器地址
+    consumer:
+      group-id: main-service-group     # 消费者分组
+      auto-offset-reset: earliest      # 消费从最早的偏移量开始
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:10086/eureka
+
+# 配置mybatis实体和xml映射
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.bbsv2.common.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+
+# 分页
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

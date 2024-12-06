@@ -156,6 +156,17 @@ public class CommentService {
   }
 
 
+  /**
+   * delete By UserId
+   * Use in kafka
+   */
+  public void deleteByUserId(Integer userId) {
+    List<Comment> comments = commentMapper.selectAllByUserId(userId);
+    for (Comment comment : comments) {
+      this.deleteById(comment.getId());
+    }
+  }
+
   private Comment populateUserInfo(Comment comment) {
     if (comment.getUserId() != null) {
       User user = userFeignClient.getUserById(comment.getUserId());

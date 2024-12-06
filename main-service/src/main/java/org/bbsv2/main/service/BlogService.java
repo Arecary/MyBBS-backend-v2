@@ -15,6 +15,7 @@ import org.bbsv2.main.entity.Blog;
 import org.bbsv2.main.entity.Collect;
 import org.bbsv2.main.entity.Likes;
 import org.bbsv2.main.mapper.BlogMapper;
+import org.bbsv2.main.mapper.CommentMapper;
 import org.bbsv2.main.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +23,7 @@ import com.github.pagehelper.PageInfo;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -34,6 +36,9 @@ public class BlogService {
 
   @Resource
   private BlogMapper blogMapper;
+
+  @Resource
+  private CommentMapper commentMapper;
 
   @Resource
   private UserFeignClient userFeignClient;
@@ -354,6 +359,33 @@ public class BlogService {
     return pageInfo;
   }
 
+
+  /**
+   * delete By UserId
+   * Use in kafka
+   */
+  public void deleteByUserId(Integer userId) {
+    List<Blog> blogs = blogMapper.selectAllByUserId(userId);
+    for (Blog blog : blogs) {
+      this.deleteById(blog.getId());
+    }
+  }
+
+  // 删除博客下所有comments
+  // 声明方法或类中的数据库操作具有事务性 保证ACID原则
+  @Transactional
+  public void deleteBlogsAndCommentsByUserId(Integer userId) {
+    // 查询用户的所有博客
+    List<Integer> blogIds = blogMapper.selectBlogIdsByUserId(userId);
+
+    if (!blogIds.isEmpty()) {
+      // 删除博客下的所有评论
+      commentMapper.deleteByBlogIds(blogIds);
+
+      // 删除用户的所有博客
+      blogMapper.deleteByUserId(userId);
+    }
+  }
 
   private Blog populateUserInfo(Blog blog) {
     if (blog.getUserId() != null) {
