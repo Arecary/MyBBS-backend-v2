@@ -3,7 +3,7 @@ Problems to transfer to microservice architecture
 1.
 将 GlobalExceptionHandler 移动到另一个模块后，它无法再捕获 JWT 中的异常了。
 主要原因是 @ControllerAdvice 默认只作用于其所在模块的 Controller 范围。
-如果跨模块，需要做一些额外的配置，但更通用的解决方法就是你提到的——写一个 CustomHandlerExceptionResolver。
+如果跨模块，需要做一些额外的配置，但更通用的解决方法是写一个 CustomHandlerExceptionResolver。
 
 HandlerExceptionResolver 是一个更底层的异常处理机制，它不依赖于 Spring MVC 的 @ControllerAdvice 范围限制。
 通过实现 HandlerExceptionResolver，你可以在全局范围捕获所有异常（包括从 JWT 验证抛出的异常）。
@@ -19,7 +19,71 @@ HandlerExceptionResolver（如 CustomHandlerExceptionResolver）：这是更底�
 
 
 2.
-分离数据库的时候需要小心原来的comment service逻辑里的连表查询，需要改成里用openfeignClient进行查询
+分离数据库的时候需要小心原来的comment service逻辑里的连表查询 因为当时很多表通过外键相连，需要改成里用openfeignClient进行查询
+
+
+3.(暂未解决)
+account-service分离出去后有安全隐患，里面的API不会受到JWT的检查
+http://localhost:8080/user/selectAll可以直接访问，无需token验证
+
+
+4.
+Token以及JWT的原理
+用户登录后生成Token，保存在浏览器localStorage里
+在main-service里每次http请求前会进行JWT验证(除去WebConfig里拦截规则外的路径)，从http header里获取token存在ThreadLocal里
+main-service里通过openfeign调用account-service里的api时，会首先执行 FeignConfig.apply，此时就会传递当前用户的token
+
+5.
+当main-service里的controller需要确定当前用户时：
+单体架构内是通过连表查询，比如blogController会查询当前blog表里的userid外键，再通过userid直接查询user表。
+但是微服务架构拆分了user表所以连表查询失效，因为此时main-service无法连接到user数据库，此时需要main-service.TokenUtils里的getCurrentUser方法；
+此方法调用TokenFeignClient与account-service进行同步通讯，调用account-service.TokenUtils里的setUser方法返回一个用户obj；
+setUser 使用上文4.里 FeignConfig.apply 自动传递的 Token（通过 ThreadLocal 从 main-service 获取），解析出当前用户并查询数据库返回用户对象。
+自此token可以自由的在两个不同的服务中进行传递。
+
+
+5.
+为什么要用 ThreadLocal 存储 Token？
+因为在整个后端服务中，可能有多个地方需要使用 Token，如果每次都从 HTTP 请求头中获取 Token会很麻烦
+所以在拦截器中解析 Token 后，将其存储到 ThreadLocal 中，后续任何地方都可以通过 TokenContext.getToken() 获取当前请求的 Token。
+在部分场景（如 Feign 请求、异步任务）中，HttpServletRequest 不可用。(不我知道为什么拿不到HttpServletRequest里的token)
+
+
+
+
+6.Nginx
+Nginx 作为反向代理，可以将所有请求（前端页面、API 请求）通过一个域名统一管理。例如：
+http://yourdomain.com：访问 Vue 前端页面。
+http://yourdomain.com/api：代理到后端服务。
+
+Nginx 能缓存静态资源，减少服务器负载。
+
+通过反向代理，前端和后端服务在同一个域下，避免了浏览器的跨域限制。
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    # 静态资源（前端）
+    root /home/ec2-user/dist;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    # 后端 API 反向代理
+    location /api/ {
+        proxy_pass http://localhost:8080/;  # 指向后端服务地址
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+
+
+
+PYTHON NEXT.JS
 
 
 
